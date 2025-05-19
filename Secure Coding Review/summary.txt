@@ -1,0 +1,46 @@
+﻿Secure Coding Review (Task 3)
+
+Tool Used:
+- OWASP ZAP
+
+Target:
+- OWASP Juice Shop (https://demo.owasp-juice.shop)
+
+Purpose:
+To identify security vulnerabilities in a web application using automated scanning.
+
+1. Content Security Policy (CSP) Header Not Set
+• Risk: Medium
+• Description: CSP is missing. This could allow attackers to inject malicious scripts (XSS).
+• Recommendation: Configure CSP headers to restrict which resources (scripts, styles, etc.) can load.
+• 
+2. Cross-Domain Misconfiguration
+• Risk: Medium
+• Description: External resources are allowed without restriction. This may expose the app to data leaks or malicious scripts.
+• Recommendation: Avoid using wildcards (*) in CORS settings. Define specific domains.
+• 
+3. Information Disclosure – Server Leaks Version Info via HTTP Header
+• Risk: Low
+• Description: The Server response header reveals tech stack info (e.g., Heroku).
+• Recommendation: Remove or obfuscate server version details from headers.
+
+4.Timestamp Disclosure – Unix
+• Risk: Low
+• Description: Unix timestamps were found in responses. Attackers can use these to infer system activity.
+• Recommendation: Avoid exposing internal timestamps unless necessary.
+
+5. Strict-Transport-Security (HSTS) Not Set
+• Risk: Low
+• Description: Without HSTS, users may unknowingly use insecure HTTP.
+• Recommendation: Add HSTS header to force HTTPS.
+
+
+Recommendations:
+- Implement proper CSP and HSTS headers
+- Limit cross-domain access using correct CORS settings
+- Avoid disclosing sensitive server information
+- Remove or obfuscate unnecessary timestamps
+
+Summary:
+The scan revealed several common security issues and if they are addressed it will reduce risk and improve web application security.
+-Reagan Owusu
